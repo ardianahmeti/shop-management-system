@@ -10,6 +10,16 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.awt.event.ActionEvent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+
+
 
 public class MainPage {
 
@@ -18,11 +28,50 @@ public class MainPage {
 	
 	private double s_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private double s_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private JTextField txtSearchProduct;
+	
+	JLabel lblData = new JLabel("");
+	JLabel lblOra = new JLabel("");
+	private JTextField txtTotal;
+	
+	// clock function - use it to show date and time
+	
+	
+	public void clock() {
+		Thread clock = new Thread() {
+			public void run() {
+				try {
+					for (;;) {
+						Calendar cal = new GregorianCalendar();
+						int month = cal.get(Calendar.MONTH);
+						int day = cal.get(Calendar.DAY_OF_MONTH);
+						int year = cal.get(Calendar.YEAR);
 
+						int sec = cal.get(Calendar.SECOND);
+						int min = cal.get(Calendar.MINUTE);
+						int hour = cal.get(Calendar.HOUR);
 
-	/**
-	 * Launch the application.
-	 */
+						lblOra.setText(
+								String.valueOf(hour) + ":" + String.valueOf(min) + ":" + String.valueOf(sec));
+						lblData.setText(
+								String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+
+						sleep(1000);
+					}
+				} catch (Exception iex) {
+					iex.printStackTrace();
+
+				}
+
+			}
+
+		};
+		clock.start();
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -72,6 +121,10 @@ public class MainPage {
 		frmMyshop.getContentPane().add(lblMyshop);
 		
 		JButton btnProducts = new JButton("Products");
+		btnProducts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnProducts.setFocusPainted(false);
 		btnProducts.setHorizontalAlignment(SwingConstants.LEFT);
 		btnProducts.setIcon(new ImageIcon(MainPage.class.getResource("/images/produktetPng.jpg")));
@@ -79,7 +132,7 @@ public class MainPage {
 		btnProducts.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnProducts.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnProducts.setBackground(Color.WHITE);
-		btnProducts.setBounds(22, 267, 155, 40);
+		btnProducts.setBounds(22, 267, 125, 40);
 		frmMyshop.getContentPane().add(btnProducts);
 		
 		JButton btnSupliers = new JButton("Suppliers");
@@ -90,7 +143,7 @@ public class MainPage {
 		btnSupliers.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnSupliers.setBorder(null);
 		btnSupliers.setBackground(Color.WHITE);
-		btnSupliers.setBounds(22, 423, 155, 41);
+		btnSupliers.setBounds(22, 423, 125, 41);
 		frmMyshop.getContentPane().add(btnSupliers);
 		
 		JButton btnSales = new JButton("Sales");
@@ -101,20 +154,81 @@ public class MainPage {
 		btnSales.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnSales.setBorder(null);
 		btnSales.setBackground(Color.WHITE);
-		btnSales.setBounds(22, 317, 155, 40);
+		btnSales.setBounds(22, 317, 125, 40);
 		frmMyshop.getContentPane().add(btnSales);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(204, 169, 1129, 525);
+		panel.setBounds(174, 169, 1159, 499);
 		frmMyshop.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblProductsList = new JLabel("Products List");
-		lblProductsList.setFont(new Font("Courier New", Font.BOLD, 11));
+		JLabel lblProductsList = new JLabel("PRODUCTS LIST");
+		lblProductsList.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblProductsList.setForeground(new Color(0, 102, 153));
-		lblProductsList.setBounds(83, 37, 91, 14);
+		lblProductsList.setBounds(22, 11, 143, 21);
 		panel.add(lblProductsList);
+		
+		JLabel lblSearchProduct = new JLabel("Search product:");
+		lblSearchProduct.setFont(new Font("Courier New", Font.BOLD, 12));
+		lblSearchProduct.setBounds(22, 43, 116, 14);
+		panel.add(lblSearchProduct);
+		
+		txtSearchProduct = new JTextField();
+		txtSearchProduct.setBounds(148, 39, 379, 21);
+		panel.add(txtSearchProduct);
+		txtSearchProduct.setColumns(10);
+		
+		JButton btnAddProduct = new JButton("Add New Product");
+		btnAddProduct.setFocusPainted(false);
+		btnAddProduct.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnAddProduct.setBackground(Color.WHITE);
+		btnAddProduct.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAddProduct.setIcon(new ImageIcon(MainPage.class.getResource("/images/shtoProdukt.png")));
+		btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnAddProduct.setForeground(new Color(0, 102, 153));
+		btnAddProduct.setBounds(64, 430, 180, 51);
+		panel.add(btnAddProduct);
+		
+		JButton btnCart = new JButton(" Add to Cart");
+		btnCart.setEnabled(false);
+		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/shporta.png")));
+		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
+		btnCart.setForeground(new Color(0, 102, 153));
+		btnCart.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnCart.setFocusPainted(false);
+		btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnCart.setBackground(Color.WHITE);
+		btnCart.setBounds(315, 430, 180, 51);
+		panel.add(btnCart);
+		
+		JLabel lblCart = new JLabel("CART");
+		lblCart.setForeground(new Color(0, 102, 153));
+		lblCart.setFont(new Font("Courier New", Font.BOLD, 18));
+		lblCart.setBounds(709, 11, 143, 21);
+		panel.add(lblCart);
+		
+		JLabel lblTotal = new JLabel("Total:");
+		lblTotal.setForeground(new Color(0, 102, 153));
+		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
+		lblTotal.setBounds(886, 390, 72, 21);
+		panel.add(lblTotal);
+		
+		txtTotal = new JTextField();
+		txtTotal.setColumns(10);
+		txtTotal.setBounds(968, 391, 180, 21);
+		panel.add(txtTotal);
+		
+		JButton btnBuy = new JButton("BUY  ");
+		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
+		btnBuy.setForeground(new Color(0, 102, 153));
+		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnBuy.setFocusPainted(false);
+		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnBuy.setBackground(Color.WHITE);
+		btnBuy.setBounds(1023, 430, 125, 40);
+		panel.add(btnBuy);
 		
 		JButton btnOrders = new JButton("Orders");
 		btnOrders.setIcon(new ImageIcon(MainPage.class.getResource("/images/orders.png")));
@@ -124,8 +238,36 @@ public class MainPage {
 		btnOrders.setFocusPainted(false);
 		btnOrders.setBorder(null);
 		btnOrders.setBackground(Color.WHITE);
-		btnOrders.setBounds(22, 368, 155, 41);
+		btnOrders.setBounds(22, 368, 125, 41);
 		frmMyshop.getContentPane().add(btnOrders);
-		//comment added to test cloning git
+		
+		JPanel pnlStatusBar = new JPanel();
+		pnlStatusBar.setBorder(new MatteBorder(5, 0, 0, 0, (Color) new Color(0, 102, 153)));
+		pnlStatusBar.setBackground(Color.WHITE);
+		pnlStatusBar.setBounds(0, 674, 1373, 31);
+		frmMyshop.getContentPane().add(pnlStatusBar);
+		pnlStatusBar.setLayout(null);
+		
+		JLabel lblProgramStarted = new JLabel("Program started ...");
+		lblProgramStarted.setFont(new Font("Courier New", Font.PLAIN, 12));
+		lblProgramStarted.setForeground(new Color(0, 102, 153));
+		lblProgramStarted.setBounds(10, 11, 133, 14);
+		pnlStatusBar.add(lblProgramStarted);
+		
+		
+		lblOra.setFont(new Font("Courier New", Font.BOLD, 12));
+		lblOra.setForeground(new Color(0, 102, 153));
+		lblOra.setBounds(1187, 11, 85, 14);
+		pnlStatusBar.add(lblOra);
+		
+		
+		lblData.setForeground(new Color(0, 102, 153));
+		lblData.setFont(new Font("Courier New", Font.BOLD, 12));
+		lblData.setBounds(1266, 11, 78, 14);
+		pnlStatusBar.add(lblData);
+		
+		// cal function 'clock' to show date and time!
+		
+		clock();
 	}
 }
