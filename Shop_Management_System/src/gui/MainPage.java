@@ -1,8 +1,10 @@
+package gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -13,11 +15,19 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
-import javax.swing.border.CompoundBorder;
+//import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
+import gui.db_connection;
+import net.proteanit.sql.DbUtils;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 
 
@@ -28,15 +38,28 @@ public class MainPage {
 	
 	private double s_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private double s_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	
 	private JTextField txtSearchProduct;
 	
 	JLabel lblData = new JLabel("");
 	JLabel lblOra = new JLabel("");
 	private JTextField txtTotal;
+	private JTable tblProducts;
+	
+	
+	
+	
+	//DB Connection!
+	Connection conn = null;
+	ResultSet res = null;
+	PreparedStatement pst = null;
+	
+	
+	
+	
 	
 	// clock function - use it to show date and time
-	
-	
+		
 	public void clock() {
 		Thread clock = new Thread() {
 			public void run() {
@@ -157,27 +180,27 @@ public class MainPage {
 		btnSales.setBounds(22, 317, 125, 40);
 		frmMyshop.getContentPane().add(btnSales);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(174, 169, 1159, 499);
-		frmMyshop.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel pnlProducts = new JPanel();
+		pnlProducts.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
+		pnlProducts.setBackground(Color.WHITE);
+		pnlProducts.setBounds(174, 169, 1159, 499);
+		frmMyshop.getContentPane().add(pnlProducts);
+		pnlProducts.setLayout(null);
 		
 		JLabel lblProductsList = new JLabel("PRODUCTS LIST");
 		lblProductsList.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblProductsList.setForeground(new Color(0, 102, 153));
 		lblProductsList.setBounds(22, 11, 143, 21);
-		panel.add(lblProductsList);
+		pnlProducts.add(lblProductsList);
 		
 		JLabel lblSearchProduct = new JLabel("Search product:");
 		lblSearchProduct.setFont(new Font("Courier New", Font.BOLD, 12));
 		lblSearchProduct.setBounds(22, 43, 116, 14);
-		panel.add(lblSearchProduct);
+		pnlProducts.add(lblSearchProduct);
 		
 		txtSearchProduct = new JTextField();
 		txtSearchProduct.setBounds(148, 39, 379, 21);
-		panel.add(txtSearchProduct);
+		pnlProducts.add(txtSearchProduct);
 		txtSearchProduct.setColumns(10);
 		
 		JButton btnAddProduct = new JButton("Add New Product");
@@ -189,7 +212,7 @@ public class MainPage {
 		btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnAddProduct.setForeground(new Color(0, 102, 153));
 		btnAddProduct.setBounds(64, 430, 180, 51);
-		panel.add(btnAddProduct);
+		pnlProducts.add(btnAddProduct);
 		
 		JButton btnCart = new JButton(" Add to Cart");
 		btnCart.setEnabled(false);
@@ -201,24 +224,24 @@ public class MainPage {
 		btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnCart.setBackground(Color.WHITE);
 		btnCart.setBounds(315, 430, 180, 51);
-		panel.add(btnCart);
+		pnlProducts.add(btnCart);
 		
 		JLabel lblCart = new JLabel("CART");
 		lblCart.setForeground(new Color(0, 102, 153));
 		lblCart.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblCart.setBounds(709, 11, 143, 21);
-		panel.add(lblCart);
+		pnlProducts.add(lblCart);
 		
 		JLabel lblTotal = new JLabel("Total:");
 		lblTotal.setForeground(new Color(0, 102, 153));
 		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblTotal.setBounds(886, 390, 72, 21);
-		panel.add(lblTotal);
+		pnlProducts.add(lblTotal);
 		
 		txtTotal = new JTextField();
 		txtTotal.setColumns(10);
 		txtTotal.setBounds(968, 391, 180, 21);
-		panel.add(txtTotal);
+		pnlProducts.add(txtTotal);
 		
 		JButton btnBuy = new JButton("BUY  ");
 		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
@@ -228,7 +251,17 @@ public class MainPage {
 		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnBuy.setBackground(Color.WHITE);
 		btnBuy.setBounds(1023, 430, 125, 40);
-		panel.add(btnBuy);
+		pnlProducts.add(btnBuy);
+		
+		JScrollPane spProductsList = new JScrollPane();
+		spProductsList.setBounds(22, 68, 650, 350);
+		pnlProducts.add(spProductsList);
+		
+		tblProducts = new JTable();
+		spProductsList.setViewportView(tblProducts);
+		
+		updateTable();
+		
 		
 		JButton btnOrders = new JButton("Orders");
 		btnOrders.setIcon(new ImageIcon(MainPage.class.getResource("/images/orders.png")));
@@ -269,5 +302,22 @@ public class MainPage {
 		// cal function 'clock' to show date and time!
 		
 		clock();
+	}
+	
+	public void updateTable() {
+
+		try {
+			conn = db_connection.connectDB();
+			String sql = "select pid as 'ID', pname as 'NAME',pstock as 'STOCK', pprice as 'PRICE' from products";
+			pst = conn.prepareStatement(sql);
+			res = pst.executeQuery();
+
+			tblProducts.setModel(DbUtils.resultSetToTableModel(res));
+			pst.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e.toString());
+		}
+
 	}
 }
