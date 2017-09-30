@@ -28,6 +28,9 @@ import net.proteanit.sql.DbUtils;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -38,6 +41,7 @@ public class MainPage {
 	
 	private double s_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private double s_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private DefaultTableModel model;
 	
 	private JTextField txtSearchProduct;
 	
@@ -45,6 +49,7 @@ public class MainPage {
 	JLabel lblOra = new JLabel("");
 	private JTextField txtTotal;
 	private JTable tblProducts;
+	private JTable tblCart;
 	
 	
 	
@@ -199,9 +204,38 @@ public class MainPage {
 		pnlProducts.add(lblSearchProduct);
 		
 		txtSearchProduct = new JTextField();
+		
+		
+		txtSearchProduct.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+				try {
+					conn = db_connection.connectDB();
+					String sql = "select pid as 'ID', pname as 'NAME', pstock as 'STOCK', pprice as 'PRICE' from products where pname like '"+txtSearchProduct.getText()+"%'";
+					pst = conn.prepareStatement(sql);
+					res = pst.executeQuery();
+
+					tblProducts.setModel(DbUtils.resultSetToTableModel(res));
+					pst.close();
+					
+
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e1.toString());
+				}
+				
+			}
+		});
 		txtSearchProduct.setBounds(148, 39, 379, 21);
 		pnlProducts.add(txtSearchProduct);
 		txtSearchProduct.setColumns(10);
+		
+		
+		
+		
+		JScrollPane spCart = new JScrollPane(tblCart);
+		spCart.setBounds(709, 68, 450, 304);
+		pnlProducts.add(spCart);
 		
 		JButton btnAddProduct = new JButton("Add New Product");
 		btnAddProduct.setFocusPainted(false);
@@ -215,7 +249,6 @@ public class MainPage {
 		pnlProducts.add(btnAddProduct);
 		
 		JButton btnCart = new JButton(" Add to Cart");
-		btnCart.setEnabled(false);
 		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/shporta.png")));
 		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCart.setForeground(new Color(0, 102, 153));
@@ -254,11 +287,18 @@ public class MainPage {
 		pnlProducts.add(btnBuy);
 		
 		JScrollPane spProductsList = new JScrollPane();
+		spProductsList.setBackground(Color.WHITE);
 		spProductsList.setBounds(22, 68, 650, 350);
 		pnlProducts.add(spProductsList);
 		
 		tblProducts = new JTable();
+		tblProducts.setFont(new Font("Courier New", Font.BOLD, 13));
 		spProductsList.setViewportView(tblProducts);
+		
+		
+		
+		
+		
 		
 		updateTable();
 		
@@ -299,7 +339,11 @@ public class MainPage {
 		lblData.setBounds(1266, 11, 78, 14);
 		pnlStatusBar.add(lblData);
 		
-		// cal function 'clock' to show date and time!
+		
+		
+		
+		
+		// call function 'clock' to show date and time!
 		
 		clock();
 	}
