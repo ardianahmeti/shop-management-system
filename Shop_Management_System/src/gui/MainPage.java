@@ -138,17 +138,17 @@ public class MainPage {
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setIcon(new ImageIcon(MainPage.class.getResource("/images/MainLogo.png")));
-		lblLogo.setBounds((int)(s_width/2 - 160), 27, 100, 90);
+		lblLogo.setBounds((int)(s_width/2 - 160), 20, 100, 90);
 		frmMyshop.getContentPane().add(lblLogo);
 		
 		JLabel lblMyshop = new JLabel("MyShop");
 		lblMyshop.setForeground(new Color(0, 102, 153));
 		lblMyshop.setFont(new Font("Courier New", Font.BOLD, 40));
 		lblMyshop.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMyshop.setBounds(648, 46, 171, 50);
+		lblMyshop.setBounds(648, 39, 171, 50);
 		frmMyshop.getContentPane().add(lblMyshop);
 		
-		JButton btnProducts = new JButton("Products");
+		JButton btnProducts = new JButton("Produktet");
 		btnProducts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -160,10 +160,10 @@ public class MainPage {
 		btnProducts.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnProducts.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnProducts.setBackground(Color.WHITE);
-		btnProducts.setBounds(22, 267, 125, 40);
+		btnProducts.setBounds(22, 267, 133, 40);
 		frmMyshop.getContentPane().add(btnProducts);
 		
-		JButton btnSupliers = new JButton("Suppliers");
+		JButton btnSupliers = new JButton("Furnizuesit");
 		btnSupliers.setFocusPainted(false);
 		btnSupliers.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSupliers.setIcon(new ImageIcon(MainPage.class.getResource("/images/supliersLogo.png")));
@@ -171,10 +171,10 @@ public class MainPage {
 		btnSupliers.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnSupliers.setBorder(null);
 		btnSupliers.setBackground(Color.WHITE);
-		btnSupliers.setBounds(22, 423, 125, 41);
+		btnSupliers.setBounds(22, 423, 133, 41);
 		frmMyshop.getContentPane().add(btnSupliers);
 		
-		JButton btnSales = new JButton("Sales");
+		JButton btnSales = new JButton("Shitjet");
 		btnSales.setFocusPainted(false);
 		btnSales.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSales.setIcon(new ImageIcon(MainPage.class.getResource("/images/salesLogo.png")));
@@ -182,25 +182,25 @@ public class MainPage {
 		btnSales.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnSales.setBorder(null);
 		btnSales.setBackground(Color.WHITE);
-		btnSales.setBounds(22, 317, 125, 40);
+		btnSales.setBounds(22, 317, 133, 40);
 		frmMyshop.getContentPane().add(btnSales);
 		
 		JPanel pnlProducts = new JPanel();
 		pnlProducts.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
 		pnlProducts.setBackground(Color.WHITE);
-		pnlProducts.setBounds(174, 169, 1159, 499);
+		pnlProducts.setBounds(174, 121, 1159, 547);
 		frmMyshop.getContentPane().add(pnlProducts);
 		pnlProducts.setLayout(null);
 		
-		JLabel lblProductsList = new JLabel("PRODUCTS LIST");
+		JLabel lblProductsList = new JLabel("LISTA E PRODUKTEVE");
 		lblProductsList.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblProductsList.setForeground(new Color(0, 102, 153));
-		lblProductsList.setBounds(22, 11, 143, 21);
+		lblProductsList.setBounds(22, 11, 198, 21);
 		pnlProducts.add(lblProductsList);
 		
-		JLabel lblSearchProduct = new JLabel("Search product:");
+		JLabel lblSearchProduct = new JLabel("K\u00EBrko produkt:");
 		lblSearchProduct.setFont(new Font("Courier New", Font.BOLD, 12));
-		lblSearchProduct.setBounds(22, 43, 116, 14);
+		lblSearchProduct.setBounds(22, 57, 116, 14);
 		pnlProducts.add(lblSearchProduct);
 		
 		txtSearchProduct = new JTextField();
@@ -212,7 +212,7 @@ public class MainPage {
 			{
 				try {
 					conn = db_connection.connectDB();
-					String sql = "select pid as 'ID', pname as 'NAME', pstock as 'STOCK', pprice as 'PRICE' from products where pname like '"+txtSearchProduct.getText()+"%'";
+					String sql = "select pid as 'ID', pname as 'EMRI', pstock as 'DEPO', pprice as 'ÇMIMI' from products where pname like '"+txtSearchProduct.getText()+"%'";
 					pst = conn.prepareStatement(sql);
 					res = pst.executeQuery();
 
@@ -226,7 +226,7 @@ public class MainPage {
 				
 			}
 		});
-		txtSearchProduct.setBounds(148, 39, 379, 21);
+		txtSearchProduct.setBounds(148, 53, 379, 21);
 		pnlProducts.add(txtSearchProduct);
 		txtSearchProduct.setColumns(10);
 		
@@ -234,10 +234,10 @@ public class MainPage {
 		
 		
 		JScrollPane spCart = new JScrollPane(tblCart);
-		spCart.setBounds(709, 68, 450, 304);
+		spCart.setBounds(709, 68, 450, 378);
 		pnlProducts.add(spCart);
 		
-		JButton btnAddProduct = new JButton("Add New Product");
+		JButton btnAddProduct = new JButton("Shto Produkt");
 		btnAddProduct.setFocusPainted(false);
 		btnAddProduct.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnAddProduct.setBackground(Color.WHITE);
@@ -245,10 +245,10 @@ public class MainPage {
 		btnAddProduct.setIcon(new ImageIcon(MainPage.class.getResource("/images/shtoProdukt.png")));
 		btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnAddProduct.setForeground(new Color(0, 102, 153));
-		btnAddProduct.setBounds(64, 430, 180, 51);
+		btnAddProduct.setBounds(127, 485, 180, 51);
 		pnlProducts.add(btnAddProduct);
 		
-		JButton btnCart = new JButton(" Add to Cart");
+		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
 		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/shporta.png")));
 		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCart.setForeground(new Color(0, 102, 153));
@@ -256,39 +256,39 @@ public class MainPage {
 		btnCart.setFocusPainted(false);
 		btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnCart.setBackground(Color.WHITE);
-		btnCart.setBounds(315, 430, 180, 51);
+		btnCart.setBounds(378, 485, 180, 51);
 		pnlProducts.add(btnCart);
 		
-		JLabel lblCart = new JLabel("CART");
+		JLabel lblCart = new JLabel("SHPORTA");
 		lblCart.setForeground(new Color(0, 102, 153));
 		lblCart.setFont(new Font("Courier New", Font.BOLD, 18));
 		lblCart.setBounds(709, 11, 143, 21);
 		pnlProducts.add(lblCart);
 		
-		JLabel lblTotal = new JLabel("Total:");
+		JLabel lblTotal = new JLabel("Totali:");
 		lblTotal.setForeground(new Color(0, 102, 153));
 		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
-		lblTotal.setBounds(886, 390, 72, 21);
+		lblTotal.setBounds(882, 457, 77, 21);
 		pnlProducts.add(lblTotal);
 		
 		txtTotal = new JTextField();
 		txtTotal.setColumns(10);
-		txtTotal.setBounds(968, 391, 180, 21);
+		txtTotal.setBounds(979, 458, 180, 21);
 		pnlProducts.add(txtTotal);
 		
-		JButton btnBuy = new JButton("BUY  ");
+		JButton btnBuy = new JButton("BLEJE");
 		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
 		btnBuy.setForeground(new Color(0, 102, 153));
 		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnBuy.setFocusPainted(false);
 		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnBuy.setBackground(Color.WHITE);
-		btnBuy.setBounds(1023, 430, 125, 40);
+		btnBuy.setBounds(1024, 490, 125, 40);
 		pnlProducts.add(btnBuy);
 		
 		JScrollPane spProductsList = new JScrollPane();
 		spProductsList.setBackground(Color.WHITE);
-		spProductsList.setBounds(22, 68, 650, 350);
+		spProductsList.setBounds(22, 85, 650, 389);
 		pnlProducts.add(spProductsList);
 		
 		tblProducts = new JTable();
@@ -303,7 +303,7 @@ public class MainPage {
 		updateTable();
 		
 		
-		JButton btnOrders = new JButton("Orders");
+		JButton btnOrders = new JButton("Porosit\u00EB");
 		btnOrders.setIcon(new ImageIcon(MainPage.class.getResource("/images/orders.png")));
 		btnOrders.setHorizontalAlignment(SwingConstants.LEFT);
 		btnOrders.setForeground(new Color(0, 102, 153));
@@ -311,7 +311,7 @@ public class MainPage {
 		btnOrders.setFocusPainted(false);
 		btnOrders.setBorder(null);
 		btnOrders.setBackground(Color.WHITE);
-		btnOrders.setBounds(22, 368, 125, 41);
+		btnOrders.setBounds(22, 368, 133, 41);
 		frmMyshop.getContentPane().add(btnOrders);
 		
 		JPanel pnlStatusBar = new JPanel();
@@ -352,7 +352,7 @@ public class MainPage {
 
 		try {
 			conn = db_connection.connectDB();
-			String sql = "select pid as 'ID', pname as 'NAME',pstock as 'STOCK', pprice as 'PRICE' from products";
+			String sql = "select pid as 'ID', pname as 'EMRI',pstock as 'DEPO', pprice as 'ÇMIMI' from products";
 			pst = conn.prepareStatement(sql);
 			res = pst.executeQuery();
 
