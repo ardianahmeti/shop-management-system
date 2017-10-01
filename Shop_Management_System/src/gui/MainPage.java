@@ -22,8 +22,10 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 //import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
@@ -458,7 +460,7 @@ public class MainPage {
 		pnlProducts.add(btnAddProduct);
 		
 		
-		
+		HashMap hm = new HashMap();
 		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
 		btnCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -469,7 +471,8 @@ public class MainPage {
 					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
 					int x;
 					x= Integer.parseInt(JOptionPane.showInputDialog("Sasia e produkteve?"));
-						
+					
+					ArrayList<String> productNames = new ArrayList();
 					
 					try {
 						String sql = "select * from products where pid='" + pid + "'";
@@ -477,40 +480,39 @@ public class MainPage {
 						res = pst.executeQuery();
 						
 						while (res.next()) {
+							//JOptionPane.showMessageDialog(null, tableCounter);
 							//JOptionPane.showMessageDialog(null, "Produkti po tfutet dhe row= "+model2.getRowCount());
 							// kodi per futje ne cart!!!
-							
-							if (model2.getRowCount()==0)
-							{
-								 //JOptionPane.showMessageDialog(null, "Produkti sosht po shtohet ");
-								 String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
-									model2.addRow(addToCart);
-							}
-							
-							else
-							{	
-								//JOptionPane.showMessageDialog(null, res.getString("PNAME"));
-								for (int count = tableCounter; count <= model2.getRowCount(); count++)
+							 
+							 if(model2.getRowCount()==0)
 								{
-									//JOptionPane.showMessageDialog(null, "Produkti para if dhe "+ model2.getRowCount()+" dhe count="+count);
-									 if (model2.getValueAt(count, 0).toString().equals(res.getString("PNAME")))
-									 {JOptionPane.showMessageDialog(null, "Produkti osht");
-										 //int newX=Integer.parseInt(model2.getValueAt(count, 2).toString());
-										 model2.setValueAt(Integer.parseInt(model2.getValueAt(count, 2).toString())+x, count, 2);
-										 x=(int) model2.getValueAt(count, 2);
-										 model2.setValueAt(Double.parseDouble(model2.getValueAt(count, 1).toString())*x, count, 3);
-										 break;
-										 }
-									 else
-									 {
-										 tableCounter++;
-										 //JOptionPane.showMessageDialog(null, "Produkti sosht po shtohet else sepse emri ne tabele eshte "+model2.getValueAt(count, 0)+"kurse ne DB :"+res.getString("PNAME"));
-										 String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
-											model2.addRow(addToCart);
-											break;
-									 }
+									String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+									model2.addRow(addToCart);
+									hm.put(0,res.getString("PNAME"));
 								}
-							}
+								else
+								{
+									for(int count=0;count<hm.size();count++)
+									{
+										if(res.getString("PNAME").equals(hm.get(count)))
+										{
+											 //JOptionPane.showMessageDialog(null, "Produkti ne hash osht "+hm.get(count));										
+											 model2.setValueAt(Integer.parseInt(model2.getValueAt(count, 2).toString())+x, count, 2);
+											 x=(int) model2.getValueAt(count, 2);
+											 model2.setValueAt(Double.parseDouble(model2.getValueAt(count, 1).toString())*x, count, 3);
+											 break;
+										}
+										else if ((count==hm.size()-1) && !(res.getString("PNAME")==hm.get(count)))
+										{
+											String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+											model2.addRow(addToCart);
+											hm.put(hm.size(),res.getString("PNAME"));
+											break;
+										}
+									}
+										
+								}
+
 							
 						double s=0;
 						for (int count = 0; count < model2.getRowCount(); count++){
