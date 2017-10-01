@@ -54,6 +54,8 @@ public class MainPage {
 	
 	
 	private DefaultTableModel model;
+
+	private DefaultTableModel model2;
 	
 	private JTextField txtSearchProduct;
 	
@@ -396,11 +398,21 @@ public class MainPage {
 		txtSearchProduct.setColumns(10);
 		
 		
+		model2 = new DefaultTableModel();
+	    model2.addColumn("Produkti");
+	    model2.addColumn("Çmimi për copë");
+	    model2.addColumn("Sasia e kërkuar");
+	    model2.addColumn("Çmimi për Sasi");
 		
-		
+	    tblCart = new JTable(model2);
+	    
+	    
 		JScrollPane spCart = new JScrollPane(tblCart);
 		spCart.setBounds(709, 68, 450, 378);
 		pnlProducts.add(spCart);
+		
+		
+		
 		
 		JButton btnAddProduct = new JButton("Shto Produkt");
 		btnAddProduct.addActionListener(new ActionListener() {
@@ -446,6 +458,50 @@ public class MainPage {
 		pnlProducts.add(btnAddProduct);
 		
 		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
+		btnCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				try{
+					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
+					int x;
+					x= Integer.parseInt(JOptionPane.showInputDialog("Sasia e produkteve?"));
+						
+					
+					try {
+						String sql = "select * from products where pid='" + pid + "'";
+						pst = conn.prepareStatement(sql);
+						res = pst.executeQuery();
+						while (res.next()) {
+							// kodi per futje ne cart!!!
+							String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+							model2.addRow(addToCart);
+						double s=0;
+						for (int count = 0; count < model2.getRowCount(); count++){
+								  s = s + Double.parseDouble(model2.getValueAt(count, 3).toString());
+						}
+						
+						txtTotal.setText(String.valueOf(s));
+							
+						}
+						
+						pst.close();
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Error: " + e2);
+					}
+				}catch (Exception e3){
+					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
+				}
+				
+				
+				
+				
+				
+				
+			}
+		});
 		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/shporta.png")));
 		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCart.setForeground(new Color(0, 102, 153));
@@ -500,35 +556,35 @@ public class MainPage {
 			public void actionPerformed(ActionEvent e) 
 			{	
 				try{
-				DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-				pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
-				
+					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
 					
-				
-				try {
-					String sql = "select * from products where pid='" + pid + "'";
-					pst = conn.prepareStatement(sql);
-					res = pst.executeQuery();
-					while (res.next()) {
-						txtProdId.setText(res.getString("PID"));
-						txtProdName.setText(res.getString("pname"));
-						txtProdStock.setText(res.getString("pstock"));
-						txtProdPrice.setText(res.getString("pprice"));
 						
+					
+					try {
+						String sql = "select * from products where pid='" + pid + "'";
+						pst = conn.prepareStatement(sql);
+						res = pst.executeQuery();
+						while (res.next()) {
+							txtProdId.setText(res.getString("PID"));
+							txtProdName.setText(res.getString("pname"));
+							txtProdStock.setText(res.getString("pstock"));
+							txtProdPrice.setText(res.getString("pprice"));
+							
+							
+							
+						}
+						btnShtoProduktin.setEnabled(false);
+						btnShtoProduktin.setVisible(false);
 						
-						
+						btnRuajTeDhenat.setEnabled(true);
+						btnRuajTeDhenat.setVisible(true);
+						pnlProductInfo.setVisible(true);
+						pst.close();
+	
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Error: " + e2);
 					}
-					btnShtoProduktin.setEnabled(false);
-					btnShtoProduktin.setVisible(false);
-					
-					btnRuajTeDhenat.setEnabled(true);
-					btnRuajTeDhenat.setVisible(true);
-					pnlProductInfo.setVisible(true);
-					pst.close();
-
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Error: " + e2);
-				}
 				}
 				catch (Exception e3){
 					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
