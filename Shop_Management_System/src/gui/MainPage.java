@@ -472,6 +472,8 @@ public class MainPage {
 					int x;
 					x= Integer.parseInt(JOptionPane.showInputDialog("Sasia e produkteve?"));
 					
+					
+					
 					ArrayList<String> productNames = new ArrayList();
 					
 					try {
@@ -484,6 +486,9 @@ public class MainPage {
 							//JOptionPane.showMessageDialog(null, "Produkti po tfutet dhe row= "+model2.getRowCount());
 							// kodi per futje ne cart!!!
 							 
+							if (x<=Integer.parseInt(res.getString("PSTOCK")))
+							{
+							
 							 if(model2.getRowCount()==0)
 								{
 									String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
@@ -512,6 +517,13 @@ public class MainPage {
 									}
 										
 								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "Sasia e kërkuar nuk gjendet në depo!\n\tPROVO PRAPE","KUJDES!",
+								        JOptionPane.WARNING_MESSAGE);
+								
+							}
 
 							
 						double s=0;
