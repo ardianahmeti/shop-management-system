@@ -167,10 +167,7 @@ public class MainPage {
 		frmMyshop.getContentPane().add(lblMyshop);
 		
 		JButton btnProducts = new JButton("Produktet");
-		btnProducts.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		btnProducts.setFocusPainted(false);
 		btnProducts.setHorizontalAlignment(SwingConstants.LEFT);
 		btnProducts.setIcon(new ImageIcon(MainPage.class.getResource("/images/produktetPng.jpg")));
@@ -210,6 +207,7 @@ public class MainPage {
 		frmMyshop.getContentPane().add(pnlProducts);
 		pnlProducts.setLayout(null);
 		
+		
 		JPanel pnlProductInfo = new JPanel();
 		pnlProductInfo.setVisible(false);
 		pnlProductInfo.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -217,6 +215,8 @@ public class MainPage {
 		pnlProductInfo.setBounds(169, 43, 683, 291);
 		pnlProducts.add(pnlProductInfo);
 		pnlProductInfo.setLayout(null);
+		
+		
 		
 		JLabel lblTDhnatE = new JLabel("T\u00CB DH\u00CBNAT E PRODUKTIT");
 		lblTDhnatE.setFont(new Font("Courier New", Font.BOLD, 26));
@@ -676,6 +676,7 @@ public class MainPage {
 		pnlStatusBar.add(lblData);
 		
 		JButton btnKlientet = new JButton("Klientet");
+		
 		btnKlientet.setIcon(new ImageIcon(MainPage.class.getResource("/images/supliersLogo.png")));
 		btnKlientet.setHorizontalAlignment(SwingConstants.LEFT);
 		btnKlientet.setForeground(new Color(0, 102, 153));
@@ -686,10 +687,37 @@ public class MainPage {
 		btnKlientet.setBounds(22, 420, 133, 41);
 		frmMyshop.getContentPane().add(btnKlientet);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(174, 121, 1159, 547);
-		frmMyshop.getContentPane().add(panel);
+		JPanel pnlKlientet = new JPanel();
+		pnlKlientet.setBackground(Color.WHITE);
+		pnlKlientet.setBounds(174, 121, 1159, 547);
+		pnlKlientet.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
+		frmMyshop.getContentPane().add(pnlKlientet);
 		
+		
+		//btnProducts Events
+		
+				btnProducts.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent arg0) {
+						pnlProducts.setVisible(true);
+						pnlKlientet.setVisible(false);
+					}
+				});
+				btnProducts.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+		//btnKlientet Events	
+				
+		btnKlientet.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				pnlProducts.setVisible(false);
+				pnlKlientet.setVisible(true);
+				
+				
+			}
+		});
 	
 		
 		// call function 'clock' to show date and time!
