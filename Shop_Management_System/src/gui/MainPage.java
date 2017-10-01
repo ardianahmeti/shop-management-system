@@ -10,6 +10,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.JButton;
@@ -155,211 +157,166 @@ public class MainPage {
 		frmMyshop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMyshop.getContentPane().setLayout(null);
 		
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogo.setIcon(new ImageIcon(MainPage.class.getResource("/images/MainLogo.png")));
-		lblLogo.setBounds((int)(s_width/2 - 160), 20, 100, 90);
-		frmMyshop.getContentPane().add(lblLogo);
-		
-		JLabel lblMyshop = new JLabel("MyShop");
-		lblMyshop.setForeground(new Color(0, 102, 153));
-		lblMyshop.setFont(new Font("Courier New", Font.BOLD, 40));
-		lblMyshop.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMyshop.setBounds(648, 39, 171, 50);
-		frmMyshop.getContentPane().add(lblMyshop);
-		
-		JButton btnProducts = new JButton("Produktet");
-		
-		btnProducts.setFocusPainted(false);
-		btnProducts.setHorizontalAlignment(SwingConstants.LEFT);
-		btnProducts.setIcon(new ImageIcon(MainPage.class.getResource("/images/produktetPng.jpg")));
-		btnProducts.setForeground(new Color(0, 102, 153));
-		btnProducts.setFont(new Font("Courier New", Font.BOLD, 13));
-		btnProducts.setBorder(new EmptyBorder(0, 0, 0, 0));
-		btnProducts.setBackground(Color.WHITE);
-		btnProducts.setBounds(22, 267, 133, 40);
-		frmMyshop.getContentPane().add(btnProducts);
-		
-		JButton btnSupliers = new JButton("Furnizuesit");
-		btnSupliers.setFocusPainted(false);
-		btnSupliers.setHorizontalAlignment(SwingConstants.LEFT);
-		btnSupliers.setIcon(new ImageIcon(MainPage.class.getResource("/images/supliersLogo.png")));
-		btnSupliers.setForeground(new Color(0, 102, 153));
-		btnSupliers.setFont(new Font("Courier New", Font.BOLD, 13));
-		btnSupliers.setBorder(null);
-		btnSupliers.setBackground(Color.WHITE);
-		btnSupliers.setBounds(22, 472, 133, 41);
-		frmMyshop.getContentPane().add(btnSupliers);
-		
-		JButton btnSales = new JButton("Shitjet");
-		btnSales.setFocusPainted(false);
-		btnSales.setHorizontalAlignment(SwingConstants.LEFT);
-		btnSales.setIcon(new ImageIcon(MainPage.class.getResource("/images/salesLogo.png")));
-		btnSales.setForeground(new Color(0, 102, 153));
-		btnSales.setFont(new Font("Courier New", Font.BOLD, 13));
-		btnSales.setBorder(null);
-		btnSales.setBackground(Color.WHITE);
-		btnSales.setBounds(22, 317, 133, 40);
-		frmMyshop.getContentPane().add(btnSales);
-		
 		JPanel pnlProducts = new JPanel();
 		pnlProducts.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
 		pnlProducts.setBackground(Color.WHITE);
-		pnlProducts.setBounds(174, 121, 1159, 547);
+		pnlProducts.setBounds(190, 11, 1143, 657);
 		frmMyshop.getContentPane().add(pnlProducts);
 		pnlProducts.setLayout(null);
-		
-		
-		JPanel pnlProductInfo = new JPanel();
-		pnlProductInfo.setVisible(false);
-		pnlProductInfo.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		pnlProductInfo.setBackground(new Color(0, 102, 153));
-		pnlProductInfo.setBounds(169, 43, 683, 291);
-		pnlProducts.add(pnlProductInfo);
-		pnlProductInfo.setLayout(null);
-		
-		
-		
-		JLabel lblTDhnatE = new JLabel("T\u00CB DH\u00CBNAT E PRODUKTIT");
-		lblTDhnatE.setFont(new Font("Courier New", Font.BOLD, 26));
-		lblTDhnatE.setForeground(Color.WHITE);
-		lblTDhnatE.setBounds(177, 41, 336, 30);
-		pnlProductInfo.add(lblTDhnatE);
-		
-		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Courier New", Font.BOLD, 14));
-		lblId.setForeground(Color.WHITE);
-		lblId.setBounds(27, 105, 24, 17);
-		pnlProductInfo.add(lblId);
-		
-		JLabel lblEmri = new JLabel("EMRI I PRODUKTIT:");
-		lblEmri.setFont(new Font("Courier New", Font.BOLD, 14));
-		lblEmri.setForeground(Color.WHITE);
-		lblEmri.setBounds(177, 105, 136, 17);
-		pnlProductInfo.add(lblEmri);
-		
-		JLabel lblSasiaNDepo = new JLabel("SASIA N\u00CB DEPO");
-		lblSasiaNDepo.setFont(new Font("Courier New", Font.BOLD, 14));
-		lblSasiaNDepo.setForeground(Color.WHITE);
-		lblSasiaNDepo.setBounds(395, 105, 104, 17);
-		pnlProductInfo.add(lblSasiaNDepo);
-		
-		JLabel lblCmimiPerCope = new JLabel("\u00C7MIMI P\u00CBR COP\u00CB");
-		lblCmimiPerCope.setFont(new Font("Courier New", Font.BOLD, 14));
-		lblCmimiPerCope.setForeground(Color.WHITE);
-		lblCmimiPerCope.setBounds(532, 105, 112, 17);
-		pnlProductInfo.add(lblCmimiPerCope);
-		
-		txtProdId = new JTextField();
-		txtProdId.setEditable(false);
-		txtProdId.setBounds(27, 133, 110, 25);
-		pnlProductInfo.add(txtProdId);
-		txtProdId.setColumns(10);
-		
-		txtProdName = new JTextField();
-		txtProdName.setBounds(167, 133, 197, 25);
-		pnlProductInfo.add(txtProdName);
-		txtProdName.setColumns(10);
-		
-		txtProdStock = new JTextField();
-		txtProdStock.setText("");
-		txtProdStock.setBounds(395, 133, 110, 25);
-		pnlProductInfo.add(txtProdStock);
-		txtProdStock.setColumns(10);
-		
-		txtProdPrice = new JTextField();
-		txtProdPrice.setText("");
-		txtProdPrice.setBounds(532, 133, 120, 25);
-		pnlProductInfo.add(txtProdPrice);
-		txtProdPrice.setColumns(10);
-		
-		JLabel lblX = new JLabel("");
-		lblX.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				txtProdId.setText("");
-				txtProdName.setText("");
-				txtProdStock.setText("");
-				txtProdPrice.setText("");
-				pnlProductInfo.setVisible(false);
-				
-			}
-		});
-		lblX.setIcon(new ImageIcon(MainPage.class.getResource("/images/xicon.jpg")));
-		lblX.setBounds(648, 5, 30, 30);
-		pnlProductInfo.add(lblX);
-		
-		JButton btnShtoProduktin = new JButton("Shto Produktin");
-		btnShtoProduktin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				try{
-					conn = db_connection.connectDB();
-					String insert = "insert into products (pname,pstock,pprice) values('"+txtProdName.getText()+" ','"+txtProdStock.getText()
-										+"','"+Double.parseDouble(txtProdPrice.getText())+"');";
-					pst = conn.prepareStatement(insert);
-					pst.execute();
-					pst.close();
-					
-					JOptionPane.showMessageDialog(null, "Produkti u shtua me sukses!");
-					
-					txtProdId.setText("");
-					txtProdName.setText("");
-					txtProdStock.setText("");
-					txtProdPrice.setText("");
-					updateTable();
-					pnlProductInfo.setVisible(false);
-					
-					}
-					catch (Exception eUpdate)
-					{
-						JOptionPane.showMessageDialog(null, "Të dhënat nuk mund të ruhen!\n Error: "+eUpdate.toString());
-					}
-			}
-		});
-		btnShtoProduktin.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 255, 204)));
-		btnShtoProduktin.setBackground(new Color(0, 102, 153));
-		btnShtoProduktin.setFont(new Font("Courier New", Font.BOLD, 17));
-		btnShtoProduktin.setForeground(Color.WHITE);
-		btnShtoProduktin.setBounds(405, 187, 247, 30);
-		pnlProductInfo.add(btnShtoProduktin);
-		
-		JButton btnRuajTeDhenat = new JButton("Ruaj t\u00EB Dh\u00EBnat");
-		btnRuajTeDhenat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				try{
-				conn = db_connection.connectDB();
-				String update = "Update  products set pname='"+txtProdName.getText()+" ', pstock='"+txtProdStock.getText()
-									+"  ', pprice='"+Double.parseDouble(txtProdPrice.getText())+"' where pid=' "+txtProdId.getText()+"  ';";
-				pst = conn.prepareStatement(update);
-				pst.execute();
-				pst.close();
-				
-				JOptionPane.showMessageDialog(null, "Të dhënat u ruajtën me sukses!");
-				
-				txtProdId.setText("");
-				txtProdName.setText("");
-				txtProdStock.setText("");
-				txtProdPrice.setText("");
-				updateTable();
-				pnlProductInfo.setVisible(false);
-				
-				}
-				catch (Exception eUpdate)
-				{
-					JOptionPane.showMessageDialog(null, "Të dhënat nuk mund të ruhen!\n Error: "+eUpdate.toString());
-				}
+	    
+	    
+	    JPanel pnlProductInfo = new JPanel();
+	    pnlProductInfo.setVisible(false);
+	    pnlProductInfo.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+	    pnlProductInfo.setBackground(new Color(0, 102, 153));
+	    pnlProductInfo.setBounds(169, 43, 683, 291);
+	    pnlProducts.add(pnlProductInfo);
+	    pnlProductInfo.setLayout(null);
+	    
+	    
+	    
+	    JLabel lblTDhnatE = new JLabel("T\u00CB DH\u00CBNAT E PRODUKTIT");
+	    lblTDhnatE.setFont(new Font("Courier New", Font.BOLD, 26));
+	    lblTDhnatE.setForeground(Color.WHITE);
+	    lblTDhnatE.setBounds(177, 41, 336, 30);
+	    pnlProductInfo.add(lblTDhnatE);
+	    
+	    JLabel lblId = new JLabel("ID:");
+	    lblId.setFont(new Font("Courier New", Font.BOLD, 14));
+	    lblId.setForeground(Color.WHITE);
+	    lblId.setBounds(27, 105, 24, 17);
+	    pnlProductInfo.add(lblId);
+	    
+	    JLabel lblEmri = new JLabel("EMRI I PRODUKTIT:");
+	    lblEmri.setFont(new Font("Courier New", Font.BOLD, 14));
+	    lblEmri.setForeground(Color.WHITE);
+	    lblEmri.setBounds(177, 105, 136, 17);
+	    pnlProductInfo.add(lblEmri);
+	    
+	    JLabel lblSasiaNDepo = new JLabel("SASIA N\u00CB DEPO");
+	    lblSasiaNDepo.setFont(new Font("Courier New", Font.BOLD, 14));
+	    lblSasiaNDepo.setForeground(Color.WHITE);
+	    lblSasiaNDepo.setBounds(395, 105, 104, 17);
+	    pnlProductInfo.add(lblSasiaNDepo);
+	    
+	    JLabel lblCmimiPerCope = new JLabel("\u00C7MIMI P\u00CBR COP\u00CB");
+	    lblCmimiPerCope.setFont(new Font("Courier New", Font.BOLD, 14));
+	    lblCmimiPerCope.setForeground(Color.WHITE);
+	    lblCmimiPerCope.setBounds(532, 105, 112, 17);
+	    pnlProductInfo.add(lblCmimiPerCope);
+	    
+	    txtProdId = new JTextField();
+	    txtProdId.setEditable(false);
+	    txtProdId.setBounds(27, 133, 110, 25);
+	    pnlProductInfo.add(txtProdId);
+	    txtProdId.setColumns(10);
+	    
+	    txtProdName = new JTextField();
+	    txtProdName.setBounds(167, 133, 197, 25);
+	    pnlProductInfo.add(txtProdName);
+	    txtProdName.setColumns(10);
+	    
+	    txtProdStock = new JTextField();
+	    txtProdStock.setText("");
+	    txtProdStock.setBounds(395, 133, 110, 25);
+	    pnlProductInfo.add(txtProdStock);
+	    txtProdStock.setColumns(10);
+	    
+	    txtProdPrice = new JTextField();
+	    txtProdPrice.setText("");
+	    txtProdPrice.setBounds(532, 133, 120, 25);
+	    pnlProductInfo.add(txtProdPrice);
+	    txtProdPrice.setColumns(10);
+	    
+	    JLabel lblX = new JLabel("");
+	    lblX.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) 
+	    	{
+	    		txtProdId.setText("");
+	    		txtProdName.setText("");
+	    		txtProdStock.setText("");
+	    		txtProdPrice.setText("");
+	    		pnlProductInfo.setVisible(false);
+	    		
+	    	}
+	    });
+	    lblX.setIcon(new ImageIcon(MainPage.class.getResource("/images/xicon.jpg")));
+	    lblX.setBounds(648, 5, 30, 30);
+	    pnlProductInfo.add(lblX);
+	    
+	    JButton btnShtoProduktin = new JButton("Shto Produktin");
+	    btnShtoProduktin.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) 
+	    	{
+	    		try{
+	    			conn = db_connection.connectDB();
+	    			String insert = "insert into products (pname,pstock,pprice) values('"+txtProdName.getText()+" ','"+txtProdStock.getText()
+	    								+"','"+Double.parseDouble(txtProdPrice.getText())+"');";
+	    			pst = conn.prepareStatement(insert);
+	    			pst.execute();
+	    			pst.close();
+	    			
+	    			JOptionPane.showMessageDialog(null, "Produkti u shtua me sukses!");
+	    			
+	    			txtProdId.setText("");
+	    			txtProdName.setText("");
+	    			txtProdStock.setText("");
+	    			txtProdPrice.setText("");
+	    			updateTable();
+	    			pnlProductInfo.setVisible(false);
+	    			
+	    			}
+	    			catch (Exception eUpdate)
+	    			{
+	    				JOptionPane.showMessageDialog(null, "Të dhënat nuk mund të ruhen!\n Error: "+eUpdate.toString());
+	    			}
+	    	}
+	    });
+	    btnShtoProduktin.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 255, 204)));
+	    btnShtoProduktin.setBackground(new Color(0, 102, 153));
+	    btnShtoProduktin.setFont(new Font("Courier New", Font.BOLD, 17));
+	    btnShtoProduktin.setForeground(Color.WHITE);
+	    btnShtoProduktin.setBounds(405, 187, 247, 30);
+	    pnlProductInfo.add(btnShtoProduktin);
+	    
+	    JButton btnRuajTeDhenat = new JButton("Ruaj t\u00EB Dh\u00EBnat");
+	    btnRuajTeDhenat.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) 
+	    	{
+	    		try{
+	    		conn = db_connection.connectDB();
+	    		String update = "Update  products set pname='"+txtProdName.getText()+" ', pstock='"+txtProdStock.getText()
+	    							+"  ', pprice='"+Double.parseDouble(txtProdPrice.getText())+"' where pid=' "+txtProdId.getText()+"  ';";
+	    		pst = conn.prepareStatement(update);
+	    		pst.execute();
+	    		pst.close();
+	    		
+	    		JOptionPane.showMessageDialog(null, "Të dhënat u ruajtën me sukses!");
+	    		
+	    		txtProdId.setText("");
+	    		txtProdName.setText("");
+	    		txtProdStock.setText("");
+	    		txtProdPrice.setText("");
+	    		updateTable();
+	    		pnlProductInfo.setVisible(false);
+	    		
+	    		}
+	    		catch (Exception eUpdate)
+	    		{
+	    			JOptionPane.showMessageDialog(null, "Të dhënat nuk mund të ruhen!\n Error: "+eUpdate.toString());
+	    		}
 
-			}
-		});
-		btnRuajTeDhenat.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 255, 204)));
-		btnRuajTeDhenat.setBackground(new Color(0, 102, 153));
-		btnRuajTeDhenat.setFont(new Font("Courier New", Font.BOLD, 17));
-		btnRuajTeDhenat.setForeground(Color.WHITE);
-		btnRuajTeDhenat.setBounds(405, 222, 247, 30);
-		pnlProductInfo.add(btnRuajTeDhenat);
+	    	}
+	    });
+	    btnRuajTeDhenat.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 255, 204)));
+	    btnRuajTeDhenat.setBackground(new Color(0, 102, 153));
+	    btnRuajTeDhenat.setFont(new Font("Courier New", Font.BOLD, 17));
+	    btnRuajTeDhenat.setForeground(Color.WHITE);
+	    btnRuajTeDhenat.setBounds(405, 222, 247, 30);
+	    pnlProductInfo.add(btnRuajTeDhenat);
+		
+	    
 		
 		JLabel lblProductsList = new JLabel("LISTA E PRODUKTEVE");
 		lblProductsList.setFont(new Font("Courier New", Font.BOLD, 18));
@@ -369,7 +326,7 @@ public class MainPage {
 		
 		JLabel lblSearchProduct = new JLabel("K\u00EBrko produkt:");
 		lblSearchProduct.setFont(new Font("Courier New", Font.BOLD, 12));
-		lblSearchProduct.setBounds(22, 57, 116, 14);
+		lblSearchProduct.setBounds(22, 39, 116, 14);
 		pnlProducts.add(lblSearchProduct);
 		
 		txtSearchProduct = new JTextField();
@@ -395,28 +352,65 @@ public class MainPage {
 				
 			}
 		});
-		txtSearchProduct.setBounds(148, 53, 379, 21);
+		txtSearchProduct.setBounds(148, 35, 379, 21);
 		pnlProducts.add(txtSearchProduct);
 		txtSearchProduct.setColumns(10);
 		
+		JLabel lblCart = new JLabel("SHPORTA");
+		lblCart.setForeground(new Color(0, 102, 153));
+		lblCart.setFont(new Font("Courier New", Font.BOLD, 18));
+		lblCart.setBounds(22, 345, 143, 21);
+		pnlProducts.add(lblCart);
 		
-		model2 = new DefaultTableModel();
-	    model2.addColumn("Produkti");
-	    model2.addColumn("Çmimi për copë");
-	    model2.addColumn("Sasia e kërkuar");
-	    model2.addColumn("Çmimi për Sasi");
+		JLabel lblTotal = new JLabel("Totali:");
+		lblTotal.setForeground(new Color(0, 102, 153));
+		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
+		lblTotal.setBounds(708, 615, 77, 21);
+		pnlProducts.add(lblTotal);
 		
-	    tblCart = new JTable(model2);
-	    
-	    
-		JScrollPane spCart = new JScrollPane(tblCart);
-		spCart.setBounds(709, 85, 450, 389);
-		pnlProducts.add(spCart);
+		txtTotal = new JTextField();
+		txtTotal.setColumns(10);
+		txtTotal.setBounds(798, 616, 180, 21);
+		pnlProducts.add(txtTotal);
+		
+		JButton btnBuy = new JButton("SHIT");
+		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
+		btnBuy.setForeground(new Color(0, 102, 153));
+		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnBuy.setFocusPainted(false);
+		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnBuy.setBackground(Color.WHITE);
+		btnBuy.setBounds(1008, 606, 125, 40);
+		pnlProducts.add(btnBuy);
+		
+		JScrollPane spProductsList = new JScrollPane();
+		spProductsList.setBackground(Color.WHITE);
+		spProductsList.setBounds(22, 65, 1120, 230);
+		pnlProducts.add(spProductsList);
+		
+		tblProducts = new JTable();
+		tblProducts.setGridColor(new Color(0, 102, 153));
+		tblProducts.setRowHeight(tblProducts.getRowHeight() + 3);
+		tblProducts.setSurrendersFocusOnKeystroke(true);
+		tblProducts.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+		tblProducts.setFont(new Font("Century Gothic", tblProducts.getFont().getStyle(), tblProducts.getFont().getSize()));
+		spProductsList.setViewportView(tblProducts);
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(tblProducts, popupMenu);
+		
+				JMenuItem menuItem = new JMenuItem("Ndrysho");
+				
+				menuItem.setBackground(Color.WHITE);
+				menuItem.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
+				popupMenu.add(menuItem);
 		
 		
 		
 		
 		JButton btnAddProduct = new JButton("Shto Produkt");
+		btnAddProduct.setBounds(697, 306, 180, 51);
+		pnlProducts.add(btnAddProduct);
 		btnAddProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -456,101 +450,10 @@ public class MainPage {
 		btnAddProduct.setIcon(new ImageIcon(MainPage.class.getResource("/images/shtoProdukt.png")));
 		btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnAddProduct.setForeground(new Color(0, 102, 153));
-		btnAddProduct.setBounds(127, 485, 180, 51);
-		pnlProducts.add(btnAddProduct);
-		
-		
-		HashMap hm = new HashMap();
 		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
-		btnCart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-				try{
-					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
-					int x;
-					x= Integer.parseInt(JOptionPane.showInputDialog("Sasia e produkteve?"));
-					
-					
-					
-					ArrayList<String> productNames = new ArrayList();
-					
-					try {
-						String sql = "select * from products where pid='" + pid + "'";
-						pst = conn.prepareStatement(sql);
-						res = pst.executeQuery();
-						
-						while (res.next()) {
-							//JOptionPane.showMessageDialog(null, tableCounter);
-							//JOptionPane.showMessageDialog(null, "Produkti po tfutet dhe row= "+model2.getRowCount());
-							// kodi per futje ne cart!!!
-							 
-							if (x<=Integer.parseInt(res.getString("PSTOCK")))
-							{
-							
-							 if(model2.getRowCount()==0)
-								{
-									String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
-									model2.addRow(addToCart);
-									hm.put(0,res.getString("PNAME"));
-								}
-								else
-								{
-									for(int count=0;count<hm.size();count++)
-									{
-										if(res.getString("PNAME").equals(hm.get(count)))
-										{
-											 //JOptionPane.showMessageDialog(null, "Produkti ne hash osht "+hm.get(count));										
-											 model2.setValueAt(Integer.parseInt(model2.getValueAt(count, 2).toString())+x, count, 2);
-											 x=(int) model2.getValueAt(count, 2);
-											 model2.setValueAt(Double.parseDouble(model2.getValueAt(count, 1).toString())*x, count, 3);
-											 break;
-										}
-										else if ((count==hm.size()-1) && !(res.getString("PNAME")==hm.get(count)))
-										{
-											String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
-											model2.addRow(addToCart);
-											hm.put(hm.size(),res.getString("PNAME"));
-											break;
-										}
-									}
-										
-								}
-							}
-							else
-							{
-								JOptionPane.showMessageDialog(null, "Sasia e kërkuar nuk gjendet në depo!\n\tPROVO PRAPE","KUJDES!",
-								        JOptionPane.WARNING_MESSAGE);
-								
-							}
-
-							
-						double s=0;
-						for (int count = 0; count < model2.getRowCount(); count++){
-								  s = s + Double.parseDouble(model2.getValueAt(count, 3).toString());
-						}
-						
-						txtTotal.setText(String.valueOf(s));
-							
-						}
-						
-						pst.close();
-
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Error: " + e2);
-					}
-				}catch (Exception e3){
-					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
-				}
-				
-				
-				
-				
-				
-				
-			}
-		});
+		btnCart.setBounds(953, 306, 180, 51);
+		pnlProducts.add(btnCart);
+		
 		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/shporta.png")));
 		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCart.setForeground(new Color(0, 102, 153));
@@ -558,95 +461,58 @@ public class MainPage {
 		btnCart.setFocusPainted(false);
 		btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnCart.setBackground(Color.WHITE);
-		btnCart.setBounds(378, 485, 180, 51);
-		pnlProducts.add(btnCart);
 		
-		JLabel lblCart = new JLabel("SHPORTA");
-		lblCart.setForeground(new Color(0, 102, 153));
-		lblCart.setFont(new Font("Courier New", Font.BOLD, 18));
-		lblCart.setBounds(709, 11, 143, 21);
-		pnlProducts.add(lblCart);
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo.setIcon(new ImageIcon(MainPage.class.getResource("/images/MainLogo.png")));
+		lblLogo.setBounds(41, 11, 100, 90);
+		frmMyshop.getContentPane().add(lblLogo);
 		
-		JLabel lblTotal = new JLabel("Totali:");
-		lblTotal.setForeground(new Color(0, 102, 153));
-		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
-		lblTotal.setBounds(734, 499, 77, 21);
-		pnlProducts.add(lblTotal);
+		JLabel lblMyshop = new JLabel("MyShop");
+		lblMyshop.setForeground(new Color(0, 102, 153));
+		lblMyshop.setFont(new Font("Courier New", Font.BOLD, 40));
+		lblMyshop.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMyshop.setBounds(22, 99, 149, 50);
+		frmMyshop.getContentPane().add(lblMyshop);
 		
-		txtTotal = new JTextField();
-		txtTotal.setColumns(10);
-		txtTotal.setBounds(824, 500, 180, 21);
-		pnlProducts.add(txtTotal);
+		JButton btnProducts = new JButton("Produktet");
 		
-		JButton btnBuy = new JButton("SHIT");
-		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
-		btnBuy.setForeground(new Color(0, 102, 153));
-		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
-		btnBuy.setFocusPainted(false);
-		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
-		btnBuy.setBackground(Color.WHITE);
-		btnBuy.setBounds(1034, 490, 125, 40);
-		pnlProducts.add(btnBuy);
+		btnProducts.setFocusPainted(false);
+		btnProducts.setHorizontalAlignment(SwingConstants.LEFT);
+		btnProducts.setIcon(new ImageIcon(MainPage.class.getResource("/images/produktetPng.jpg")));
+		btnProducts.setForeground(new Color(0, 102, 153));
+		btnProducts.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnProducts.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnProducts.setBackground(Color.WHITE);
+		btnProducts.setBounds(22, 267, 133, 40);
+		frmMyshop.getContentPane().add(btnProducts);
 		
-		JScrollPane spProductsList = new JScrollPane();
-		spProductsList.setBackground(Color.WHITE);
-		spProductsList.setBounds(22, 85, 650, 389);
-		pnlProducts.add(spProductsList);
+		JButton btnSupliers = new JButton("Furnizuesit");
+		btnSupliers.setFocusPainted(false);
+		btnSupliers.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSupliers.setIcon(new ImageIcon(MainPage.class.getResource("/images/supliersLogo.png")));
+		btnSupliers.setForeground(new Color(0, 102, 153));
+		btnSupliers.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnSupliers.setBorder(null);
+		btnSupliers.setBackground(Color.WHITE);
+		btnSupliers.setBounds(22, 472, 133, 41);
+		frmMyshop.getContentPane().add(btnSupliers);
 		
-		tblProducts = new JTable();
-		tblProducts.setFont(new Font("Courier New", Font.BOLD, 13));
-		spProductsList.setViewportView(tblProducts);
+		JButton btnSales = new JButton("Shitjet");
+		btnSales.setFocusPainted(false);
+		btnSales.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSales.setIcon(new ImageIcon(MainPage.class.getResource("/images/salesLogo.png")));
+		btnSales.setForeground(new Color(0, 102, 153));
+		btnSales.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnSales.setBorder(null);
+		btnSales.setBackground(Color.WHITE);
+		btnSales.setBounds(22, 317, 133, 40);
+		frmMyshop.getContentPane().add(btnSales);
 		
-		JPopupMenu popupMenu = new JPopupMenu();
-		addPopup(tblProducts, popupMenu);
-
-		JMenuItem menuItem = new JMenuItem("Ndrysho");
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{	
-				try{
-					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
-					
-						
-					
-					try {
-						String sql = "select * from products where pid='" + pid + "'";
-						pst = conn.prepareStatement(sql);
-						res = pst.executeQuery();
-						while (res.next()) {
-							txtProdId.setText(res.getString("PID"));
-							txtProdName.setText(res.getString("pname"));
-							txtProdStock.setText(res.getString("pstock"));
-							txtProdPrice.setText(res.getString("pprice"));
-							
-							
-							
-						}
-						btnShtoProduktin.setEnabled(false);
-						btnShtoProduktin.setVisible(false);
-						
-						btnRuajTeDhenat.setEnabled(true);
-						btnRuajTeDhenat.setVisible(true);
-						pnlProductInfo.setVisible(true);
-						pst.close();
-	
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Error: " + e2);
-					}
-				}
-				catch (Exception e3){
-					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
-				}
-				
-				
-				
-				
-			}
-		});
-		menuItem.setBackground(Color.WHITE);
-		menuItem.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
-		popupMenu.add(menuItem);
+		
+		
+		
+		HashMap hm = new HashMap();
 		
 		
 		
@@ -703,9 +569,33 @@ public class MainPage {
 		
 		JPanel pnlKlientet = new JPanel();
 		pnlKlientet.setBackground(Color.WHITE);
-		pnlKlientet.setBounds(174, 121, 1159, 547);
+		pnlKlientet.setBounds(190, 121, 1143, 547);
 		pnlKlientet.setBorder(new MatteBorder(0, 5, 0, 0, (Color) new Color(0, 102, 153)));
 		frmMyshop.getContentPane().add(pnlKlientet);
+		
+		
+
+		model2 = new DefaultTableModel();
+	    model2.addColumn("Produkti");
+	    model2.addColumn("Çmimi për copë");
+	    model2.addColumn("Sasia e kërkuar");
+	    model2.addColumn("Çmimi për Sasi");
+		
+	    
+	    tblCart = new JTable(model2);
+		tblCart.setGridColor(new Color(0, 102, 153));
+		tblCart.setRowHeight(tblProducts.getRowHeight() + 3);
+		tblCart.setSurrendersFocusOnKeystroke(true);
+		tblCart.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+		tblCart.setFont(new Font("Century Gothic", tblProducts.getFont().getStyle(), tblProducts.getFont().getSize()));
+	    
+		JScrollPane spCart = new JScrollPane(tblCart);
+		spCart.setBounds(22, 374, 1120, 230);
+		pnlProducts.add(spCart);
+		
+		
+		
+		
 		
 		
 		//btnProducts Events
@@ -732,7 +622,159 @@ public class MainPage {
 				
 			}
 		});
+		
+		
+		
+		
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{	
+				try{
+					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
+					
+						
+					
+					try {
+						String sql = "select * from products where pid='" + pid + "'";
+						pst = conn.prepareStatement(sql);
+						res = pst.executeQuery();
+						while (res.next()) {
+							txtProdId.setText(res.getString("PID"));
+							txtProdName.setText(res.getString("pname"));
+							txtProdStock.setText(res.getString("pstock"));
+							txtProdPrice.setText(res.getString("pprice"));
+							
+							
+							
+						}
+						btnShtoProduktin.setEnabled(false);
+						btnShtoProduktin.setVisible(false);
+						
+						btnRuajTeDhenat.setEnabled(true);
+						btnRuajTeDhenat.setVisible(true);
+						pnlProductInfo.setVisible(true);
+						pst.close();
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Error: " + e2);
+					}
+				}
+				catch (Exception e3){
+					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
+				}
+				
+				
+				
+				
+			}
+		});
 	
+		
+		
+		
+		
+		btnCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				try{
+					DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+					pid = ((int) (model.getValueAt(tblProducts.getSelectedRow(), 0)));
+					int x;
+					x= Integer.parseInt(JOptionPane.showInputDialog("Sasia e produkteve?"));
+					
+					
+					
+					ArrayList<String> productNames = new ArrayList();
+					
+					try {
+						String sql = "select * from products where pid='" + pid + "'";
+						pst = conn.prepareStatement(sql);
+						res = pst.executeQuery();
+						
+						while (res.next()) {
+							//JOptionPane.showMessageDialog(null, tableCounter);
+							//JOptionPane.showMessageDialog(null, "Produkti po tfutet dhe row= "+model2.getRowCount());
+							// kodi per futje ne cart!!!
+							 
+							if (x<=Integer.parseInt(res.getString("PSTOCK")))
+							{
+							
+							 if(model2.getRowCount()==0)
+								{
+									String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+									model2.addRow(addToCart);
+									hm.put(0,res.getString("PNAME"));
+								}
+								else
+								{
+									for(int count=0;count<hm.size();count++)
+									{
+										if(res.getString("PNAME").equals(hm.get(count)))
+										{
+											if(Integer.parseInt(res.getString("PSTOCK"))>=Integer.parseInt(model2.getValueAt(count, 2).toString())+x)
+											{
+												 //JOptionPane.showMessageDialog(null, "Produkti ne hash osht "+hm.get(count));										
+												 model2.setValueAt(Integer.parseInt(model2.getValueAt(count, 2).toString())+x, count, 2);
+												 x=(int) model2.getValueAt(count, 2);
+												 model2.setValueAt(Double.parseDouble(model2.getValueAt(count, 1).toString())*x, count, 3);
+												 break;
+											}
+											else
+											{
+												JOptionPane.showMessageDialog(null, "Sasia e kërkuar nuk gjendet në depo!\n\tPROVO PRAPE","KUJDES!",
+												        JOptionPane.WARNING_MESSAGE);
+												break;
+											}
+										}
+										else if ((count==hm.size()-1) && !(res.getString("PNAME")==hm.get(count)))
+										{
+											String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+											model2.addRow(addToCart);
+											hm.put(hm.size(),res.getString("PNAME"));
+											break;
+										}
+									}
+										
+								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "Sasia e kërkuar nuk gjendet në depo!\n\tPROVO PRAPE","KUJDES!",
+								        JOptionPane.WARNING_MESSAGE);
+								
+							}
+
+							
+						double s=0;
+						for (int count = 0; count < model2.getRowCount(); count++){
+								  s = s + Double.parseDouble(model2.getValueAt(count, 3).toString());
+						}
+						
+						txtTotal.setText(String.valueOf(s));
+							
+						}
+						
+						pst.close();
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Error: " + e2);
+					}
+				}catch (Exception e3){
+					JOptionPane.showMessageDialog(null, "Ju lutem klikoni një produkt!!!");
+				}
+				
+				
+				
+				
+				
+				
+			}
+		});
+		
+		
+		
 		
 		// call function 'clock' to show date and time!
 		
