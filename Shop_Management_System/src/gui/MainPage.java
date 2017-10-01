@@ -50,7 +50,7 @@ public class MainPage {
 	private double s_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private double s_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private int pid;
-	
+	private int tableCounter=0;
 	
 	
 	private DefaultTableModel model;
@@ -189,7 +189,7 @@ public class MainPage {
 		btnSupliers.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnSupliers.setBorder(null);
 		btnSupliers.setBackground(Color.WHITE);
-		btnSupliers.setBounds(22, 423, 133, 41);
+		btnSupliers.setBounds(22, 472, 133, 41);
 		frmMyshop.getContentPane().add(btnSupliers);
 		
 		JButton btnSales = new JButton("Shitjet");
@@ -295,7 +295,7 @@ public class MainPage {
 				try{
 					conn = db_connection.connectDB();
 					String insert = "insert into products (pname,pstock,pprice) values('"+txtProdName.getText()+" ','"+txtProdStock.getText()
-										+"','"+Double.parseDouble(txtProdPrice.getText())+"';";
+										+"','"+Double.parseDouble(txtProdPrice.getText())+"');";
 					pst = conn.prepareStatement(insert);
 					pst.execute();
 					pst.close();
@@ -408,7 +408,7 @@ public class MainPage {
 	    
 	    
 		JScrollPane spCart = new JScrollPane(tblCart);
-		spCart.setBounds(709, 68, 450, 378);
+		spCart.setBounds(709, 85, 450, 389);
 		pnlProducts.add(spCart);
 		
 		
@@ -457,6 +457,8 @@ public class MainPage {
 		btnAddProduct.setBounds(127, 485, 180, 51);
 		pnlProducts.add(btnAddProduct);
 		
+		
+		
 		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
 		btnCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -473,10 +475,43 @@ public class MainPage {
 						String sql = "select * from products where pid='" + pid + "'";
 						pst = conn.prepareStatement(sql);
 						res = pst.executeQuery();
+						
 						while (res.next()) {
+							//JOptionPane.showMessageDialog(null, "Produkti po tfutet dhe row= "+model2.getRowCount());
 							// kodi per futje ne cart!!!
-							String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
-							model2.addRow(addToCart);
+							
+							if (model2.getRowCount()==0)
+							{
+								 //JOptionPane.showMessageDialog(null, "Produkti sosht po shtohet ");
+								 String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+									model2.addRow(addToCart);
+							}
+							
+							else
+							{	
+								//JOptionPane.showMessageDialog(null, res.getString("PNAME"));
+								for (int count = tableCounter; count <= model2.getRowCount(); count++)
+								{
+									//JOptionPane.showMessageDialog(null, "Produkti para if dhe "+ model2.getRowCount()+" dhe count="+count);
+									 if (model2.getValueAt(count, 0).toString().equals(res.getString("PNAME")))
+									 {JOptionPane.showMessageDialog(null, "Produkti osht");
+										 //int newX=Integer.parseInt(model2.getValueAt(count, 2).toString());
+										 model2.setValueAt(Integer.parseInt(model2.getValueAt(count, 2).toString())+x, count, 2);
+										 x=(int) model2.getValueAt(count, 2);
+										 model2.setValueAt(Double.parseDouble(model2.getValueAt(count, 1).toString())*x, count, 3);
+										 break;
+										 }
+									 else
+									 {
+										 tableCounter++;
+										 //JOptionPane.showMessageDialog(null, "Produkti sosht po shtohet else sepse emri ne tabele eshte "+model2.getValueAt(count, 0)+"kurse ne DB :"+res.getString("PNAME"));
+										 String [] addToCart = {res.getString("PNAME"),res.getString("PPRICE"),String.valueOf(x),String.valueOf(Double.parseDouble(res.getString("PPRICE"))*x)};
+											model2.addRow(addToCart);
+											break;
+									 }
+								}
+							}
+							
 						double s=0;
 						for (int count = 0; count < model2.getRowCount(); count++){
 								  s = s + Double.parseDouble(model2.getValueAt(count, 3).toString());
@@ -521,22 +556,22 @@ public class MainPage {
 		JLabel lblTotal = new JLabel("Totali:");
 		lblTotal.setForeground(new Color(0, 102, 153));
 		lblTotal.setFont(new Font("Courier New", Font.BOLD, 18));
-		lblTotal.setBounds(882, 457, 77, 21);
+		lblTotal.setBounds(734, 499, 77, 21);
 		pnlProducts.add(lblTotal);
 		
 		txtTotal = new JTextField();
 		txtTotal.setColumns(10);
-		txtTotal.setBounds(979, 458, 180, 21);
+		txtTotal.setBounds(824, 500, 180, 21);
 		pnlProducts.add(txtTotal);
 		
-		JButton btnBuy = new JButton("BLEJE");
+		JButton btnBuy = new JButton("SHIT");
 		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
 		btnBuy.setForeground(new Color(0, 102, 153));
 		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
 		btnBuy.setFocusPainted(false);
 		btnBuy.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
 		btnBuy.setBackground(Color.WHITE);
-		btnBuy.setBounds(1024, 490, 125, 40);
+		btnBuy.setBounds(1034, 490, 125, 40);
 		pnlProducts.add(btnBuy);
 		
 		JScrollPane spProductsList = new JScrollPane();
@@ -640,6 +675,21 @@ public class MainPage {
 		lblData.setBounds(1266, 11, 78, 14);
 		pnlStatusBar.add(lblData);
 		
+		JButton btnKlientet = new JButton("Klientet");
+		btnKlientet.setIcon(new ImageIcon(MainPage.class.getResource("/images/supliersLogo.png")));
+		btnKlientet.setHorizontalAlignment(SwingConstants.LEFT);
+		btnKlientet.setForeground(new Color(0, 102, 153));
+		btnKlientet.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnKlientet.setFocusPainted(false);
+		btnKlientet.setBorder(null);
+		btnKlientet.setBackground(Color.WHITE);
+		btnKlientet.setBounds(22, 420, 133, 41);
+		frmMyshop.getContentPane().add(btnKlientet);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(174, 121, 1159, 547);
+		frmMyshop.getContentPane().add(panel);
+		
 	
 		
 		// call function 'clock' to show date and time!
@@ -687,8 +737,4 @@ public class MainPage {
 		});
 
 	}
-	
-	
-	
-	
 }
