@@ -350,8 +350,44 @@ public class MainPage {
 		btnRuajTeDhenat.setBackground(new Color(0, 102, 153));
 		btnRuajTeDhenat.setFont(new Font("Courier New", Font.BOLD, 17));
 		btnRuajTeDhenat.setForeground(Color.WHITE);
-		btnRuajTeDhenat.setBounds(405, 222, 247, 30);
+		btnRuajTeDhenat.setBounds(354, 221, 247, 30);
 		pnlProductInfo.add(btnRuajTeDhenat);
+		
+		JButton btnPFshij = new JButton("Fshij Produktin");
+		btnPFshij.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					conn = db_connection.connectDB();
+					String delete = "delete from  furnizuesit  where pid=' "+txtProdId.getText()+"  ';";
+					pst = conn.prepareStatement(delete);
+					pst.execute();
+					pst.close();
+					
+					JOptionPane.showMessageDialog(null, "Furnizuesi u fshi me sukses!");
+					
+					txtProdId.setText("");
+					txtProdName.setText("");
+					txtProdStock.setText("");
+					txtProdPrice.setText("");
+					updateTable();
+					pnlProductInfo.setVisible(false);
+					
+					}
+					catch (Exception eDelete)
+					{
+						JOptionPane.showMessageDialog(null, "Të dhënat e Furnizuesit me id : "+txtFID.getText() +" nuk mund të fshihen!\n Error: "+eDelete.toString());
+					}
+				
+				
+				
+			}
+		});
+		btnPFshij.setForeground(Color.WHITE);
+		btnPFshij.setFont(new Font("Courier New", Font.BOLD, 17));
+		btnPFshij.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 255, 204)));
+		btnPFshij.setBackground(new Color(0, 102, 153));
+		btnPFshij.setBounds(97, 221, 247, 30);
+		pnlProductInfo.add(btnPFshij);
 		
 	    
 		
@@ -507,6 +543,9 @@ public class MainPage {
 						btnShtoProduktin.setEnabled(false);
 						btnShtoProduktin.setVisible(false);
 						
+						
+						btnPFshij.setEnabled(true);
+						btnPFshij.setVisible(true);
 						btnRuajTeDhenat.setEnabled(true);
 						btnRuajTeDhenat.setVisible(true);
 						pnlProductInfo.setVisible(true);
@@ -651,6 +690,10 @@ public class MainPage {
 						btnShtoProduktin.setEnabled(true);
 						btnShtoProduktin.setVisible(true);
 						
+						
+						btnPFshij.setEnabled(false);
+						btnPFshij.setVisible(false);
+						
 						btnRuajTeDhenat.setEnabled(false);
 						btnRuajTeDhenat.setVisible(false);
 						pnlProductInfo.setVisible(true);
@@ -722,6 +765,67 @@ public class MainPage {
 		txtFFirma.setColumns(10);
 		
 		txtFTel = new JTextField();
+		txtFTel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				
+				if(txtFTel.getText().length()==3)
+				{
+					if( txtFTel.getText().equals("044"))
+					{
+						txtFTel.setText("+377(0)44");
+					}
+					
+					else if( txtFTel.getText().equals("049"))
+					{
+						txtFTel.setText("+386(0)49");
+					}
+					
+					else if( txtFTel.getText().equals("045"))
+					{
+						txtFTel.setText("+377(0)45");
+					}
+					else if( txtFTel.getText().equals("038"))
+					{
+						txtFTel.setText("+381(0)38");
+					}
+				}
+				
+				else if(txtFTel.getText().length()==2)
+				{
+					if( txtFTel.getText().equals("44"))
+					{
+						txtFTel.setText("+377(0)44");
+					}
+					
+					else if( txtFTel.getText().equals("49"))
+					{
+						txtFTel.setText("+386(0)49");
+					}
+					
+					else if( txtFTel.getText().equals("45"))
+					{
+						txtFTel.setText("+377(0)45");
+					}
+					else if( txtFTel.getText().equals("38"))
+					{
+						txtFTel.setText("+381(0)38");
+					}
+				}
+				
+			}
+			
+			@Override
+			public void keyTyped(KeyEvent e1) {
+				char ch = e1.getKeyChar();
+				
+				if (!(Character.isDigit(ch) || ch=='(' || ch==')')) {
+					Toolkit.getDefaultToolkit().beep();
+					e1.consume();
+				}
+			}
+		});
 		txtFTel.setBounds(167, 184, 144, 28);
 		pnlFInfo.add(txtFTel);
 		txtFTel.setText("");
@@ -759,7 +863,7 @@ public class MainPage {
 		btnFRuaj.setBackground(new Color(0, 102, 153));
 		btnFRuaj.setFont(new Font("Courier New", Font.BOLD, 12));
 		btnFRuaj.setForeground(Color.WHITE);
-		btnFRuaj.setBounds(160, 223, 151, 32);
+		btnFRuaj.setBounds(65, 223, 151, 32);
 		pnlFInfo.add(btnFRuaj);
 		
 		JButton btnFShto = new JButton("Shto Furnizuesin");
@@ -813,6 +917,40 @@ public class MainPage {
 		lblNewLabel.setBounds(427, 0, 30, 38);
 		pnlFInfo.add(lblNewLabel);
 		
+		JButton btnFFshij = new JButton("Fshij t\u00EB Dh\u00EBnat");
+		btnFFshij.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					conn = db_connection.connectDB();
+					String delete = "delete from  furnizuesit  where fid=' "+txtFID.getText()+"  ';";
+					pst = conn.prepareStatement(delete);
+					pst.execute();
+					pst.close();
+					
+					JOptionPane.showMessageDialog(null, "Furnizuesi u fshi me sukses!");
+					
+					txtFID.setText("");
+					txtFEmri.setText("");
+					txtFFirma.setText("");
+					txtFTel.setText("");
+					updateFurnizuesit();
+					pnlFInfo.setVisible(false);
+					
+					}
+					catch (Exception eDelete)
+					{
+						JOptionPane.showMessageDialog(null, "Të dhënat e Furnizuesit me id : "+txtFID.getText() +" nuk mund të fshihen!\n Error: "+eDelete.toString());
+					}
+				
+			}
+		});
+		btnFFshij.setForeground(Color.WHITE);
+		btnFFshij.setFont(new Font("Courier New", Font.BOLD, 12));
+		btnFFshij.setFocusPainted(false);
+		btnFFshij.setBackground(new Color(0, 102, 153));
+		btnFFshij.setBounds(218, 223, 151, 32);
+		pnlFInfo.add(btnFFshij);
+		
 		JScrollPane spFurnizuesit = new JScrollPane();
 		spFurnizuesit.setBounds(155, 189, 852, 330);
 		pnlFurnizuesit.add(spFurnizuesit);
@@ -853,6 +991,8 @@ public class MainPage {
 				
 				btnFRuaj.setEnabled(false);
 				btnFRuaj.setVisible(false);
+				btnFFshij.setEnabled(false);
+				btnFFshij.setVisible(false);
 				
 				btnFShto.setEnabled(true);
 				btnFShto.setVisible(true);
@@ -901,15 +1041,15 @@ public class MainPage {
 		rdbtnFirmes.setFont(new Font("Courier New", Font.BOLD, 13));
 		rdbtnFirmes.setBounds(486, 128, 109, 23);
 		pnlFurnizuesit.add(rdbtnFirmes);
-				
-				
-				JPopupMenu popupFurnizuesit = new JPopupMenu();
-				addPopup(tblFurnizuesit, popupFurnizuesit);
-				
-				JMenuItem menuItem1 = new JMenuItem("Ndrysho");
-				menuItem1.setBackground(Color.WHITE);
-				menuItem1.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
-				popupFurnizuesit.add(menuItem1);
+		
+		
+		JPopupMenu popupFurnizuesit = new JPopupMenu();
+		addPopup(tblFurnizuesit, popupFurnizuesit);
+		
+		JMenuItem menuItem1 = new JMenuItem("Ndrysho");
+		menuItem1.setBackground(Color.WHITE);
+		menuItem1.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
+		popupFurnizuesit.add(menuItem1);
 		
 		
 		menuItem1.addActionListener(new ActionListener() {
@@ -934,6 +1074,8 @@ public class MainPage {
 							
 							btnFRuaj.setEnabled(true);
 							btnFRuaj.setVisible(true);
+							btnFFshij.setEnabled(true);
+							btnFFshij.setVisible(true);
 							
 							btnFShto.setEnabled(false);
 							btnFShto.setVisible(false);
@@ -956,6 +1098,45 @@ public class MainPage {
 				
 				
 				
+			}
+		});
+		
+	    txtKerkoFurnizues.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+				if(rdbtnEmrit.isSelected())
+				{
+					try {
+						conn = db_connection.connectDB();
+						String sql1 = "select fid as 'ID', fname as 'EMRI',fFirma as 'FIRMA', fTel as 'Nr.TELEFONIT' from furnizuesit where fname like '"+txtKerkoFurnizues.getText()+"%';";
+						pst = conn.prepareStatement(sql1);
+						res = pst.executeQuery();
+
+						tblFurnizuesit.setModel(DbUtils.resultSetToTableModel(res));
+						pst.close();
+
+					} catch (Exception e5) {
+						JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e5.toString());
+					}
+					
+					
+				}
+				else if(rdbtnFirmes.isSelected())
+				{
+					try {
+						conn = db_connection.connectDB();
+						String sql1 = "select fid as 'ID', fname as 'EMRI',fFirma as 'FIRMA', fTel as 'Nr.TELEFONIT' from furnizuesit where ffirma like '"+txtKerkoFurnizues.getText()+"%';";
+						pst = conn.prepareStatement(sql1);
+						res = pst.executeQuery();
+
+						tblFurnizuesit.setModel(DbUtils.resultSetToTableModel(res));
+						pst.close();
+
+					} catch (Exception e5) {
+						JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e5.toString());
+					}
+				}
 			}
 		});
 		
@@ -1074,45 +1255,6 @@ public class MainPage {
 	    model2.addColumn("Çmimi për copë");
 	    model2.addColumn("Sasia e kërkuar");
 	    model2.addColumn("Çmimi për Sasi");
-		
-	    txtKerkoFurnizues.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-				if(rdbtnEmrit.isSelected())
-				{
-					try {
-						conn = db_connection.connectDB();
-						String sql1 = "select fid as 'ID', fname as 'EMRI',fFirma as 'FIRMA', fTel as 'Nr.TELEFONIT' from furnizuesit where fname like '"+txtKerkoFurnizues.getText()+"%';";
-						pst = conn.prepareStatement(sql1);
-						res = pst.executeQuery();
-
-						tblFurnizuesit.setModel(DbUtils.resultSetToTableModel(res));
-						pst.close();
-
-					} catch (Exception e5) {
-						JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e5.toString());
-					}
-					
-					
-				}
-				else if(rdbtnFirmes.isSelected())
-				{
-					try {
-						conn = db_connection.connectDB();
-						String sql1 = "select fid as 'ID', fname as 'EMRI',fFirma as 'FIRMA', fTel as 'Nr.TELEFONIT' from furnizuesit where ffirma like '"+txtKerkoFurnizues.getText()+"%';";
-						pst = conn.prepareStatement(sql1);
-						res = pst.executeQuery();
-
-						tblFurnizuesit.setModel(DbUtils.resultSetToTableModel(res));
-						pst.close();
-
-					} catch (Exception e5) {
-						JOptionPane.showMessageDialog(null, "Connection Failed!\nError: "+e5.toString());
-					}
-				}
-			}
-		});
 		
 		
 		
