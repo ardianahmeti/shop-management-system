@@ -475,35 +475,41 @@ public class MainPage {
 		JPopupMenu popupMenu = new JPopupMenu();
 		addPopup(tblProducts, popupMenu);
 		
-				JMenuItem menuItem = new JMenuItem("Ndrysho");
+		JMenuItem menuItem = new JMenuItem("Ndrysho");
 				
-				menuItem.setBackground(Color.WHITE);
-				menuItem.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
-				popupMenu.add(menuItem);
+		menuItem.setBackground(Color.WHITE);
+		menuItem.setIcon(new ImageIcon(MainPage.class.getResource("/images/edit.jpg")));
+		popupMenu.add(menuItem);
 				
-				JButton btnAddProduct = new JButton("Shto Produkt t\u00EB Ri");
-				btnAddProduct.setBounds(651, 345, 198, 35);
-				pnlProducts.add(btnAddProduct);
+		JButton btnAddProduct = new JButton("Shto Produkt t\u00EB Ri");
+		btnAddProduct.setBounds(651, 345, 198, 35);
+		pnlProducts.add(btnAddProduct);
 				
-				btnAddProduct.setFocusPainted(false);
-				btnAddProduct.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
-				btnAddProduct.setBackground(Color.WHITE);
-				btnAddProduct.setHorizontalAlignment(SwingConstants.LEFT);
-				btnAddProduct.setIcon(new ImageIcon(MainPage.class.getResource("/images/add.png")));
-				btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
-				btnAddProduct.setForeground(new Color(0, 102, 153));
-				JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
-				btnCart.setBounds(875, 345, 198, 35);
-				pnlProducts.add(btnCart);
+		btnAddProduct.setFocusPainted(false);
+		btnAddProduct.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnAddProduct.setBackground(Color.WHITE);
+		btnAddProduct.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAddProduct.setIcon(new ImageIcon(MainPage.class.getResource("/images/add.png")));
+		btnAddProduct.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnAddProduct.setForeground(new Color(0, 102, 153));
+		JButton btnCart = new JButton("Shto n\u00EB shport\u00EB");
+		btnCart.setBounds(875, 345, 198, 35);
+		pnlProducts.add(btnCart);
 				
-				btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/cart.png")));
-				btnCart.setHorizontalAlignment(SwingConstants.LEFT);
-				btnCart.setForeground(new Color(0, 102, 153));
-				btnCart.setFont(new Font("Courier New", Font.BOLD, 13));
-				btnCart.setFocusPainted(false);
-				btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
-				btnCart.setBackground(Color.WHITE);
+		btnCart.setIcon(new ImageIcon(MainPage.class.getResource("/images/cart.png")));
+		btnCart.setHorizontalAlignment(SwingConstants.LEFT);
+		btnCart.setForeground(new Color(0, 102, 153));
+		btnCart.setFont(new Font("Courier New", Font.BOLD, 13));
+		btnCart.setFocusPainted(false);
+		btnCart.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153), new Color(0, 102, 153)));
+		btnCart.setBackground(Color.WHITE);
+		
 				
+		model2 = new DefaultTableModel();
+		model2.addColumn("Produkti");
+		model2.addColumn("Çmimi për copë");
+		model2.addColumn("Sasia e kërkuar");
+		model2.addColumn("Çmimi për Sasi");		
 	    
 	    tblCart = new JTable(model2);
 	    tblCart.setGridColor(new Color(0, 102, 153));
@@ -1250,11 +1256,7 @@ public class MainPage {
 		
 		
 
-		model2 = new DefaultTableModel();
-	    model2.addColumn("Produkti");
-	    model2.addColumn("Çmimi për copë");
-	    model2.addColumn("Sasia e kërkuar");
-	    model2.addColumn("Çmimi për Sasi");
+		
 		
 		
 		
