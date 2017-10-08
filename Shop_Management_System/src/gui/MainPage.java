@@ -73,6 +73,8 @@ public class MainPage {
 	private JTable tblFurnizuesit;
 	
 	
+	private HashMap hm = new HashMap();
+	private String[] opsionet = new String[2];
 	
 	
 	//DB Connection!
@@ -155,7 +157,6 @@ public class MainPage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		HashMap hm = new HashMap();
 		
 		frmMyshop = new JFrame();
 		frmMyshop.setTitle("MyShop");
@@ -285,7 +286,7 @@ public class MainPage {
 			{
 				try{
 					conn = db_connection.connectDB();
-					String insert = "insert into products (pname,pstock,pprice) values('"+txtProdName.getText()+" ','"+txtProdStock.getText()
+					String insert = "insert into products (pid,pname,pstock,pprice) values('"+txtProdId.getText()+"','"+txtProdName.getText()+" ','"+txtProdStock.getText()
 										+"','"+Double.parseDouble(txtProdPrice.getText())+"');";
 					pst = conn.prepareStatement(insert);
 					pst.execute();
@@ -356,14 +357,22 @@ public class MainPage {
 		JButton btnPFshij = new JButton("Fshij Produktin");
 		btnPFshij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				opsionet = new String[2];
+				opsionet[0] = new String("Po");
+				opsionet[1] = new String("Jo");
+				
+			
+				int x = JOptionPane.showOptionDialog(frmMyshop.getContentPane(),"Deshironi ta fshini produktin!","Fshij Produktin", 0,JOptionPane.INFORMATION_MESSAGE,null,opsionet,null);
+				if(x==0){
 				try{
 					conn = db_connection.connectDB();
-					String delete = "delete from  furnizuesit  where pid=' "+txtProdId.getText()+"  ';";
+					String delete = "delete from  products  where pid='"+txtProdId.getText()+"';";
 					pst = conn.prepareStatement(delete);
 					pst.execute();
 					pst.close();
 					
-					JOptionPane.showMessageDialog(null, "Furnizuesi u fshi me sukses!");
+					JOptionPane.showMessageDialog(null, "Produkti u fshi me sukses!");
 					
 					txtProdId.setText("");
 					txtProdName.setText("");
@@ -375,9 +384,9 @@ public class MainPage {
 					}
 					catch (Exception eDelete)
 					{
-						JOptionPane.showMessageDialog(null, "Të dhënat e Furnizuesit me id : "+txtFID.getText() +" nuk mund të fshihen!\n Error: "+eDelete.toString());
+						JOptionPane.showMessageDialog(null, "Të dhënat e produktit me id : "+txtFID.getText() +" nuk mund të fshihen!\n Error: "+eDelete.toString());
 					}
-				
+				}
 				
 				
 			}
@@ -449,6 +458,217 @@ public class MainPage {
 		pnlProducts.add(txtTotal);
 		
 		JButton btnBuy = new JButton("SHITE");
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				int rreshta = model2.getRowCount();
+				if(rreshta==0)
+				{
+					JOptionPane.showMessageDialog(null, "Shporta është e zbrazët!!", "Shporta e zbrazët!", JOptionPane.NO_OPTION);
+				}
+				else{
+					opsionet = new String[2];
+					opsionet[0] = new String("Po");
+					opsionet[1] = new String("Jo");
+					
+					int kf = JOptionPane.showOptionDialog(frmMyshop.getContentPane(),"Deshironi Kupon Fiskal!","Kuponi Fiskal", 0,JOptionPane.INFORMATION_MESSAGE,null,opsionet,null);
+					if(kf==1 || kf==0){
+						if(kf==0)
+						{
+							
+							
+							// kodi per kupon fiskal
+							///
+							///
+							///
+							///
+							///
+							///
+							///
+							///
+							
+							JOptionPane.showMessageDialog(null, "Shtypa kuponin!");
+						}
+						else if(kf==1)
+						{
+							// kodi per fature te rregullt
+							///
+							///
+							///
+							///
+							///
+							///
+							///
+							///
+							JOptionPane.showMessageDialog(null, "Shtypa faturen!");
+						
+							
+						}
+						
+						try{
+							conn = db_connection.connectDB();
+							String sql = "SELECT * FROM shitjet ORDER BY shid DESC LIMIT 1";
+							pst = conn.prepareStatement(sql);
+							res = pst.executeQuery();
+							int idNr=0;
+							int idDita=0;
+							int idMuaji=0;
+							int idViti=0;
+							
+							Calendar cal = new GregorianCalendar();
+							int dita = cal.get(Calendar.DAY_OF_MONTH);
+							int muaji = cal.get(Calendar.MONTH);
+							int viti1 = cal.get(Calendar.YEAR);
+							
+							String idRe="";
+							while (res.next()) 
+							{
+								String id = res.getString("shid");
+								
+								
+								idNr = Integer.parseInt(id.substring(3,6));
+								idDita = Integer.parseInt(id.substring(7,9));
+								idMuaji = Integer.parseInt(id.substring(9,11));
+								String viti = "20"+id.substring(11);
+								idViti = Integer.parseInt(viti);
+								
+								
+								
+								
+								
+								if(!(idDita==dita && idMuaji==muaji+1 && idViti == viti1))
+								{
+									idNr=0;
+								}
+								
+							}
+							idNr++;
+							
+							//  sh-001/08102017
+							
+							
+							if(idNr<10)
+							{
+								if(dita <10 && muaji+1<10 )
+								{
+									idRe = "sh-00"+String.valueOf(idNr)+"/0"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								
+								else if (dita <10 && muaji+1>=10 )
+								{
+									idRe = "sh-00"+String.valueOf(idNr)+"/0"+dita+""+(muaji+1)+""+(viti1-2000);
+								}
+								else if (dita >=10 && muaji+1<10 )
+								{
+									idRe = "sh-00"+String.valueOf(idNr)+"/"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								else{
+									idRe = "sh-00"+String.valueOf(idNr)+"/"+dita+""+(muaji+1)+""+viti1;
+								}
+							}
+							else if(idNr<100 && idNr>=10)
+							{
+								if(dita <10 && muaji+1<10 )
+								{
+									idRe = "sh-0"+String.valueOf(idNr)+"/0"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								
+								else if (dita <10 && muaji+1>=10 )
+								{
+									idRe = "sh-0"+String.valueOf(idNr)+"/0"+dita+""+(muaji+1)+""+(viti1-2000);
+								}
+								else if (dita >=10 && muaji+1<10 )
+								{
+									idRe = "sh-0"+String.valueOf(idNr)+"/"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								else{
+									idRe = "sh-0"+String.valueOf(idNr)+"/"+dita+""+(muaji+1)+""+viti1;
+								}
+							}
+							
+							else if(idNr>100 )
+							{
+								if(dita <10 && muaji+1<10 )
+								{
+									idRe = "sh-"+String.valueOf(idNr)+"/0"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								
+								else if (dita <10 && muaji+1>=10 )
+								{
+									idRe = "sh-"+String.valueOf(idNr)+"/0"+dita+""+(muaji+1)+""+(viti1-2000);
+								}
+								else if (dita >=10 && muaji+1<10 )
+								{
+									idRe = "sh-"+String.valueOf(idNr)+"/"+dita+"0"+(muaji+1)+""+(viti1-2000);
+								}
+								else{
+									idRe = "sh-"+String.valueOf(idNr)+"/"+dita+""+(muaji+1)+""+viti1;
+								}
+							}
+							
+							int s=0;
+							
+							for(int i=0;i<rreshta;i++)
+							{
+								s=s+Integer.parseInt(String.valueOf(model2.getValueAt(i, 2)));
+							}
+							
+							
+							
+							String insertShitjet = "insert into shitjet (shid,shdata,shora,shprodukte,shtotal) values('"+idRe+"',now(),now(),'"+s+"','"+txtTotal.getText()+"');";
+							pst = conn.prepareStatement(insertShitjet);
+							pst.execute();
+							pst.close();
+							
+							JOptionPane.showMessageDialog(null, "Fatura po shtohet!");
+							
+							
+							for(int i=rreshta-1;i>=0;i--)
+							{
+								String prodName = String.valueOf(model2.getValueAt(i, 0));
+								
+								String gjeje = "select * from products where pname='"+prodName+"';";
+								conn = db_connection.connectDB();
+								pst = conn.prepareStatement(gjeje);
+								res=pst.executeQuery();
+								
+								while (res.next())
+								{
+									
+									int prodSasi = Integer.parseInt(res.getString("pstock"));
+									prodSasi = prodSasi - Integer.parseInt(String.valueOf(model2.getValueAt(i, 2)));
+									pst = conn.prepareStatement("Update products set pstock='"+prodSasi+"' where PNAME='"+prodName+"'");
+									pst.execute();
+									pst.close();
+									break;
+								}
+								
+								
+								model2.removeRow(i);
+								
+							}
+							txtTotal.setText("");
+							
+							updateTable();
+							
+							
+							
+							
+							
+							
+							
+							
+							}
+							catch (Exception eUpdate)
+							{
+								JOptionPane.showMessageDialog(null, "Fatura nuk mund të shtohet!\n Error: "+eUpdate.toString());
+							}
+					}
+				}
+			
+			}
+		});
 		btnBuy.setIcon(new ImageIcon(MainPage.class.getResource("/images/pay.png")));
 		btnBuy.setForeground(new Color(0, 102, 153));
 		btnBuy.setFont(new Font("Courier New", Font.BOLD, 13));
@@ -926,6 +1146,8 @@ public class MainPage {
 		JButton btnFFshij = new JButton("Fshij t\u00EB Dh\u00EBnat");
 		btnFFshij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int x = JOptionPane.showConfirmDialog(null, "Deshironi ti fshini të dhënat e furnizuesit?", "Fshij Furnizuesin", 2);
+				if(x==0){
 				try{
 					conn = db_connection.connectDB();
 					String delete = "delete from  furnizuesit  where fid=' "+txtFID.getText()+"  ';";
@@ -947,7 +1169,7 @@ public class MainPage {
 					{
 						JOptionPane.showMessageDialog(null, "Të dhënat e Furnizuesit me id : "+txtFID.getText() +" nuk mund të fshihen!\n Error: "+eDelete.toString());
 					}
-				
+				}
 			}
 		});
 		btnFFshij.setForeground(Color.WHITE);
